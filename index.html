@@ -1,62 +1,143 @@
-<html>
-    <head>
-      
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Culture • boj</title>
+</head>
+<body class="grey"> 
+     <!-- NAVBAR -->
+    <nav class="z-depth-0 grey darken-3">
+        <div class="nav-wrapper container">
+          <a href="#" class="brand-logo">
+            <img src="img/logo.png" style="width: 180px;height: 140px; margin-top: 2px;">
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li class="logged-in">
+                <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
+              </li>
+              <li class="logged-in">
+                <a href="#" class="grey-text" id="logout">Logout</a>
+              </li>
+              <li class="logged-in">
+                <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Guide</a>
+              </li>
+              <li class="logged-out">
+                <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+              </li>
+              <li class="logged-out">
+                <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+              </li>
+          </ul>
+        </div>
+      </nav> 
+
+       <!-- SIGN UP MODAL -->
+  <div id="modal-signup" class="modal">
+        <div class="modal-content">
+          <h4>Sign up</h4><br />
+          <form id="signup-form">
+            <div class="input-field">
+              <input type="email" id="signup-email" required />
+              <label for="signup-email">Email address</label>
+            </div>
+            <div class="input-field">
+              <input type="password" id="signup-password" required />
+              <label for="signup-password">Choose password</label>
+            </div>
+            <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+          </form>
+        </div>
+      </div>
+
+       <!-- LOGIN MODAL -->
+  <div id="modal-login" class="modal">
+        <div class="modal-content">
+          <h4>Login</h4><br />
+          <form id="login-form">
+            <div class="input-field">
+              <input type="email" id="login-email" required />
+              <label for="login-email">Email address</label>
+            </div>
+            <div class="input-field">
+              <input type="password" id="login-password" required />
+              <label for="login-password">Your password</label>
+            </div>
+            <button class="btn yellow darken-2 z-depth-0">Login</button>
+          </form>
+        </div>
+      </div>
+      <!-- ACCOUNT MODAL -->
+      <div id="modal-account" class="modal">
+        <div class="modal-content center-align">
+          <h4>Account details</h4><br />
+          <div class="account-details"></div>
+        </div>
+      </div>
+      <!-- CREATE GUIDE MODAL -->
+      <div id="modal-create" class="modal">
+        <div class="modal-content">
+          <h4>Create Guide</h4><br />
+          <form id="create-form">
+            <div class="input-field">
+              <input type="text" id="title" required>
+              <label for="title">Guide Title</label>
+            </div>
+            <div class="input-field">
+              <textarea id="content" class="materialize-textarea" required></textarea>
+              <label for="content">Guide Content</label>
+            </div>
+            <button class="btn yellow darken-2 z-depth-0">Create</button>
+          </form>
+        </div>
+      </div>
+
+       <!-- GUIDE LIST -->
+  <div class="container" style="margin-top: 100px;">
+        <ul class="collapsible z-depth-0 guides" style="border: none;">
+          <li>
+            <div class="black-text collapsible-header grey">Guide title</div>
+            <div class="collapsible-body white">Lorem ipsum dolor sit amet.</div>
+          </li>
+          <li>
+            <div class="black-text collapsible-header grey">Guide title</div>
+            <div class="collapsible-body white"><span>Lorem ipsum dolor sit amet.</span></div>
+          </li>
+          <li>
+            <div class="black-text collapsible-header grey">Guide title</div>
+            <div class="collapsible-body white"><span>Lorem ipsum dolor sit amet.</span></div>
+          </li>
+          <li>
+            <div class="black-text collapsible-header grey">Guide title</div>
+            <div class="collapsible-body white"><span>Lorem ipsum dolor sit amet.</span></div>
+          </li>
+        </ul>
+      </div>
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
 
   <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-firestore.js"></script>
 
-        <script src="firebase.js"></script>
-    </head>
-    <body>
-
-        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-            <!-- Header section containing title -->
-            <!-- <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-              <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-                <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--8-col-desktop">
-                  <a href="/"><h3>Firebase Authentication</h3></a>
-                </div>
-              </div>
-            </header>
-           -->
-            <main class="mdl-layout__content mdl-color--grey-100">
-              <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-          
-                <!-- Container for the demo -->
-                <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                  <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
-                    <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
-                  </div>
-                  <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                    <p>Enter an email and password below and either sign in to an existing account or sign up</p>
-          
-                    <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
-                    &nbsp;&nbsp;&nbsp;
-                    <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
-                    <br/><br/>
-                    <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
-                    &nbsp;&nbsp;&nbsp;
-                    <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
-                    &nbsp;&nbsp;&nbsp;
-                    <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
-                    &nbsp;&nbsp;&nbsp;
-                    <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
-          
-                    <!-- Container where we'll display the user details -->
-                    <div class="quickstart-user-details-container">
-                      Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-                      <div>Firebase auth <code>currentUser</code> object value:</div>
-                      <pre><code id="quickstart-account-details">null</code></pre>
-                    </div>
-                  </div>
-                </div>
-          
-              </div>
-            </main>
-          </div>
-    </body>
+      <script>
+       // Initialize Firebase
+       var config = {
+            apiKey: "AIzaSyB5Brgffz450IqANwPKaO7gN_epiEww04k",
+            authDomain: "jaisproject-b5b20.firebaseapp.com",
+            databaseURL: "https://jaisproject-b5b20.firebaseio.com",
+            projectId: "jaisproject-b5b20",
+            storageBucket: "jaisproject-b5b20.appspot.com",
+            messagingSenderId: "181360724611"
+          };
+          firebase.initializeApp(config);
+          const auth = firebase.auth();
+          const db = firebase.firestore();
+      </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>    
+</body>
 </html>
