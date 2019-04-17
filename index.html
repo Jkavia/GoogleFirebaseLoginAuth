@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <title>Culture • boj</title>
 </head>
-<body class="grey"> 
+<body class="grey lighten-1"> 
      <!-- NAVBAR -->
     <nav class="z-depth-0 grey darken-3">
         <div class="nav-wrapper container">
@@ -46,6 +46,11 @@
               <input type="password" id="signup-password" required />
               <label for="signup-password">Choose password</label>
             </div>
+            <div class="input-field">
+                    <input type="password" id="confirm_signup-password" onkeyup='check();' required />
+                    <label for="signup-password">Confirm password</label>
+                    <span id='message'></span>
+                  </div>
             <button class="btn yellow darken-2 z-depth-0">Sign up</button>
           </form>
         </div>
@@ -134,6 +139,18 @@
           firebase.initializeApp(config);
           const auth = firebase.auth();
           const db = firebase.firestore();
+ // update firestore settings
+ //db.settings({ timestampsInSnapshots: true });
+ var check = function() {
+  if (document.getElementById('signup-password').value ==
+    document.getElementById('confirm_signup-password').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'matching';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'not matching';
+  }
+}
       </script>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
