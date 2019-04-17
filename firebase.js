@@ -47,6 +47,7 @@
           alert('Please enter a password.');
           return;
         }
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         // Sign in with email and pass.
         // [START authwithemail]
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
@@ -140,8 +141,7 @@
      *    out, and that is where we update the UI.
      */
     function initApp() {
-      // Listening for auth state changes.
-      // [START authstatelistener]
+ 
       firebase.auth().onAuthStateChanged(function(user) {
         // [START_EXCLUDE silent]
         document.getElementById('quickstart-verify-email').disabled = true;
