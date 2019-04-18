@@ -1,34 +1,47 @@
-// DOM elements
-const guideList = document.querySelector('.guides');
+    // DOM elements
+    const guideList = document.querySelector('.guides');
+    //hadling login logout tabs
+    const loggedOutLinks = document.querySelectorAll('.logged-out');
+    const loggedInLinks = document.querySelectorAll('.logged-in');
 
-// setup guides
-const setupGuides = (data) => {
 
-        if(data.length){
-    let html = '';
-    data.forEach(doc => {
-        const guide = doc.data();
-        console.log(doc.data);
-        const li = `<li>
-            <div class="collapsible-header grey lighten-1"> ${guide.title} </div>
-            <div class="collapsible-body white"> ${guide.content} </div>
-        </li>`;
-        html += li;
-    });
-    guideList.innerHTML = html
-    }else{
-        guideList.innerHTML = '<h5 class="center-align">Login to view Profile</h5>';
+    const setupUI = (user) => {
+        if(user){
+            loggedInLinks.forEach(item => item.style.display = 'block');
+            loggedOutLinks.forEach(item => item.style.display = 'none');
+        }else{
+            loggedInLinks.forEach(item => item.style.display = 'none');
+            loggedOutLinks.forEach(item => item.style.display = 'block');
+        }
     }
-};
+    // setup guides
+    const setupGuides = (data) => {
 
-// setup materialize components
-document.addEventListener('DOMContentLoaded', function() {
+            if(data.length){
+        let html = '';
+        data.forEach(doc => {
+            const guide = doc.data();
+            console.log(doc.data);
+            const li = `<li>
+                <div class="collapsible-header grey lighten-1"> ${guide.title} </div>
+                <div class="collapsible-body white"> ${guide.content} </div>
+            </li>`;
+            html += li;
+        });
+        guideList.innerHTML = html
+        }else{
+            guideList.innerHTML = '<h5 class="center-align">Login to view Profile</h5>';
+        }
+    };
 
-    var modals = document.querySelectorAll('.modal');
-    //M for materialize
-    M.Modal.init(modals);
-  
-    var items = document.querySelectorAll('.collapsible');
-    M.Collapsible.init(items);
-  
-  });
+    // setup materialize components
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var modals = document.querySelectorAll('.modal');
+        //M for materialize
+        M.Modal.init(modals);
+    
+        var items = document.querySelectorAll('.collapsible');
+        M.Collapsible.init(items);
+    
+    });
