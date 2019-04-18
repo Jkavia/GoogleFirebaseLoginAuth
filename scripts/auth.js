@@ -1,3 +1,22 @@
+
+
+// listen for auth status changes
+auth.onAuthStateChanged(user => {
+    if (user) {
+        //get data
+
+db.collection('guides').get().then(snapshot => {
+    console.log(snapshot.docs);
+    setupGuides(snapshot.docs);
+  });
+      //window.alert('user logged in: ', user);
+    } else {
+        setupGuides([]);
+      window.alert('user logged out');
+    }
+  });
+
+
 // signup
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
@@ -33,8 +52,49 @@ signupForm.addEventListener('submit', (e) => {
 const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {
   e.preventDefault();
-  auth.signOut().then(() => {
-      window.alert('user signed out');
-    console.log('user signed out');
-  })
+  auth.signOut().catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // [START_EXCLUDE]
+    if (errorCode == 'auth/weak-password') {
+      alert('The password is too weak.');
+    } else {
+      alert(errorMessage);
+    }
+    console.log(error);
+    // [END_EXCLUDE]
+  });
+});
+
+// login
+const loginForm = document.querySelector('#login-form');
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  // get user info
+  const email = loginForm['login-email'].value;
+  const password = loginForm['login-password'].value;
+
+  // log the user in
+  auth.signInWithEmailAndPassword(email, password).then((cred) => {
+    console.log(cred.user);
+    // close the signup modal & reset form
+    const modal = document.querySelector('#modal-login');
+    M.Modal.getInstance(modal).close();
+    loginForm.reset();
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // [START_EXCLUDE]
+    if (errorCode == 'auth/weak-password') {
+      alert('The password is too weak.');
+    } else {
+      alert(errorMessage);
+    }
+    console.log(error);
+    // [END_EXCLUDE]
+  });
+
 });
