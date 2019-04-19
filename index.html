@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <title>Culture • boj</title>
     </head>
-    <body class="grey lighten-1"> 
+    <body class="yellow lighten-4"> 
         <!-- NAVBAR -->
         <nav class="z-depth-0 grey darken-3">
             <div class="nav-wrapper container">
@@ -32,7 +32,12 @@
             </ul>
             </div>
         </nav> 
-
+  <!-- ADMIN ACTIONS
+  <form class="center-align admin-actions" style="margin: 40px auto; max-width: 300px;">
+        <input type="email" placeholder="User email" id="admin-email" required />
+        <button class="btn-small yellow darken-2 z-depth-0">Make admin</button>
+      </form> -->
+    
         <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal">
             <div class="modal-content">
@@ -79,7 +84,14 @@
                 </div>
                 <button class="btn yellow darken-2 z-depth-0">Login</button>
             </form>
-            </div>
+           <table style="width:100px">
+               <td>
+            <div><button id="google-signIn" class="btn grey lighten-4 z-depth-0"><img src="https://www.shareicon.net/download/2015/09/25/107042_new.ico" style="height: 30px;width: 30px;margin-bottom: 10px"></button></div>
+        </td><td>
+            <div><button id="github-signIn" class="btn grey lighten-4 z-depth-0"><img src="https://camo.githubusercontent.com/7710b43d0476b6f6d4b4b2865e35c108f69991f3/68747470733a2f2f7777772e69636f6e66696e6465722e636f6d2f646174612f69636f6e732f6f637469636f6e732f313032342f6d61726b2d6769746875622d3235362e706e67" style="height: 30px;width: 30px;margin-bottom:10px"></button></div>
+        </td>
+        </table>
+        </div>
         </div>
         <!-- ACCOUNT MODAL -->
         <div id="modal-account" class="modal">
@@ -117,7 +129,7 @@
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-firestore.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-functions.js"></script>
         <script>
         // Initialize Firebase
         var config = {
@@ -131,6 +143,7 @@
             firebase.initializeApp(config);
             const auth = firebase.auth();
             const db = firebase.firestore();
+            const functions = firebase.functions();
     // update firestore settings
     //db.settings({ timestampsInSnapshots: true });
     var check = function() {

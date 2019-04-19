@@ -37,9 +37,9 @@
             let html = '';
             data.forEach(doc => {
                 const guide = doc.data();
-                console.log(doc.data);
+                //console.log(doc.data);
                 const li = `<li>
-                    <div class="collapsible-header grey lighten-1"> ${guide.title} </div>
+                    <div class="collapsible-header yellow lighten-4"> ${guide.title} </div>
                     <div class="collapsible-body white"> ${guide.content} </div>
                 </li>`;
                 html += li;
