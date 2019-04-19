@@ -21,7 +21,7 @@
                     <a href="#" class="grey-text" id="logout">Logout</a>
                 </li>
                 <li class="logged-in" style="display: none">
-                    <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Guide</a>
+                    <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Post</a>
                 </li>
                 <li class="logged-out" style="display: none">
                     <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
@@ -38,6 +38,10 @@
             <div class="modal-content">
             <h4>Sign up</h4><br />
             <form id="signup-form">
+                    <div class="input-field">
+                            <input type="text" id="name" required />
+                            <label for="name">Enter full name</label>
+                          </div>
                 <div class="input-field">
                 <input type="email" id="signup-email" required />
                 <label for="signup-email">Email address</label>
@@ -51,6 +55,10 @@
                         <label for="signup-password">Confirm password</label>
                         <span id='message'></span>
                     </div>
+                    <div class="input-field">
+                            <input type="text" id="signup-bio" required />
+                            <label for="signup-bio">One Line Bio</label>
+                          </div>
                 <button class="btn yellow darken-2 z-depth-0">Sign up</button>
             </form>
             </div>
@@ -87,11 +95,11 @@
             <form id="create-form">
                 <div class="input-field">
                 <input type="text" id="title" required>
-                <label for="title">Guide Title</label>
+                <label for="title">Post Title</label>
                 </div>
                 <div class="input-field">
                 <textarea id="content" class="materialize-textarea" required></textarea>
-                <label for="content">Guide Content</label>
+                <label for="content">Post Content</label>
                 </div>
                 <button class="btn yellow darken-2 z-depth-0">Create</button>
             </form>

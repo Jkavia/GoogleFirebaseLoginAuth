@@ -4,12 +4,14 @@
     auth.onAuthStateChanged(user => {
         if (user) {
             //get data
-
-    db.collection('guides').get().then(snapshot => {
-        console.log(snapshot.docs);
+//db.collection('guides').get().then changed to below to get the realtime db update visible on ui
+db.collection('guides').onSnapshot(snapshot => {
+       // console.log(snapshot.docs);
         setupGuides(snapshot.docs);
+        setupUI(user);
+    }, err =>{
+        console.log(err.message);
     });
-    setupUI(user);
         //window.alert('user logged in: ', user);
         } else {
             setupUI();
@@ -45,11 +47,25 @@
     // get user info
     const email = signupForm['signup-email'].value;
     const password = signupForm['signup-password'].value;
+    const name = signupForm['name'].value;
 
     // sign up the user
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        console.log(cred.user);
+        //console.log(cred.user);
         // close the signup modal & reset form
+        cred.user.updateProfile({
+            displayName: name,
+            photoURL: "https://cdn4.iconfinder.com/data/icons/blank-people-avatars/256/2-512.png"
+          }).then(function() {
+            // Update successful.
+          }).catch(function(error) {
+            // An error happened.
+          });
+
+        return db.collection('users').doc(cred.user.uid).set({
+            bio: signupForm['signup-bio'].value
+          });
+        }).then(()=>{
         const modal = document.querySelector('#modal-signup');
         M.Modal.getInstance(modal).close();
         signupForm.reset();
