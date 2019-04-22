@@ -177,3 +177,33 @@
         });
  
          });
+
+
+         //Github login
+         const githubLogin = document.querySelector('#github-signIn');
+         githubLogin.addEventListener('click', (e) => {
+         e.preventDefault();
+         
+         // define google as the base providor
+         const base_providor1 = new firebase.auth.GithubAuthProvider();
+         auth.signInWithPopup(base_providor1).then(result=>{
+            console.log(result.user);
+            // close the signup modal & reset form
+            const modal = document.querySelector('#modal-login');
+            M.Modal.getInstance(modal).close();
+            loginForm.reset();
+         }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // [START_EXCLUDE]
+            if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.');
+            } else {
+            alert(errorMessage);
+            }
+            console.log(error);
+            // [END_EXCLUDE]
+        });
+ 
+         });
